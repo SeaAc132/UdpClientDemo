@@ -103,6 +103,7 @@ namespace UdpClientDemo
                     connectedTimestamp = nanoTime();
                     connected = true;
                     btnConnect.Text = "Disconnect";
+                    btnConnect.BackColor = Color.Tomato;
                     txtAddress.Enabled = false;
                     txtSendingPort.Enabled = false;
                     txtListeningPort.Enabled = false;
@@ -121,6 +122,7 @@ namespace UdpClientDemo
                     udpClient.Close();
                     connected = false;
                     btnConnect.Text = "Connect";
+                    btnConnect.BackColor = Color.Chartreuse;
                     labelStatus.Text = "Closed";
                     txtAddress.Enabled = true;
                     txtSendingPort.Enabled = true;
@@ -186,61 +188,46 @@ namespace UdpClientDemo
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSaveLogFile_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPage1)
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "LogFile";
+            saveFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Please choose log file or plain text");
-            }
-            else if (tabControl1.SelectedTab == tabPage2)
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.FileName = "LogFile";
-                saveFileDialog.Filter = "CSV Files (*.csv)|*.csv";
-                saveFileDialog.RestoreDirectory = true;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
                 {
-                    using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
+                    writer.WriteLine("Time,Timestamp,Data");
+                    foreach (PacketReceived packet in packets)
                     {
-                        writer.WriteLine("Time,Timestamp,Data");
-                        foreach (PacketReceived packet in packets)
-                        {
-                            writer.WriteLine(packet.ToString());
-                        }
+                        writer.WriteLine(packet.ToString());
                     }
                 }
             }
-            else if (tabControl1.SelectedTab == tabPage3)
+        }
+
+        private void btnSavePlainText_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "PlainText";
+            saveFileDialog.Filter = "Plain Text Files (*.txt)|*.txt";
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.FileName = "PlainText";
-                saveFileDialog.Filter = "Plain Text Files (*.txt)|*.txt";
-                saveFileDialog.RestoreDirectory = true;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
                 {
-                    using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
-                    {
-                        writer.Write(txtPlain.Text);
-                    }
+                    writer.Write(txtPlain.Text);
                 }
             }
         }
 
         private void btnClearTab_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPage1)
-            {
-                txtConsole.Clear();
-            }
-            else if (tabControl1.SelectedTab == tabPage2)
-            {
-                packets.Clear();
-                gridLog.DataSource = new BindingList<PacketReceived>(packets);
-            }
-            else if (tabControl1.SelectedTab == tabPage3)
-            {
-                txtPlain.Clear();
-            }
+            txtConsole.Clear();
+            packets.Clear();
+            gridLog.DataSource = new BindingList<PacketReceived>(packets);
+            txtPlain.Clear();
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
