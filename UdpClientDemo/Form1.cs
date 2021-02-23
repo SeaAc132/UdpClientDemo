@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace UdpClientDemo
         {
             InitializeComponent();
         }
-        public static int dataInterval = 1;
+        public static int dataInterval = 1000;
         private List<string> dataToSend = new List<string>();
         public static long connectedTimestamp;
         private List<PacketReceived> packets = new List<PacketReceived>();
@@ -254,25 +255,44 @@ namespace UdpClientDemo
         }
         private void ThreadSendBuffer()
         {
-            foreach (string dataT in dataToSend)
+            while (connected && dataToSend.Count > 0)
             {
-                if (!connected)
-                {
-                    break;
-                }
-                sendData(dataT);
-                Thread.Sleep(dataInterval * 1000);
+                string data = dataToSend[0];
+                sendData(data);
+                dataToSend.RemoveAt(0);
+                Thread.Sleep(dataInterval);
             }
+        }
+        private List<string> splitString(string data, int bufferSize)
+        {
+            List<string> list = new List<string>();
+            char[] arr = data.ToCharArray();
+            string buffer = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (i % bufferSize == 0)
+                {
+                    if (i != 0) list.Add(buffer);
+                    buffer = "";
+                }
+                buffer += arr[i];
+            }
+            if (buffer != "")
+            {
+                list.Add(buffer);
+            }
+            return list;
         }
         private void btnSendFile_Click(object sender, EventArgs e)
         {
-            int interval, size;
+            double interval;
+            int size;
             if (txtReadFile.Text == "")
             {
                 MessageBox.Show("Please select file");
                 return;
             }
-            if (!int.TryParse(txtInterval.Text, out interval))
+            if (!double.TryParse(txtInterval.Text, out interval))
             {
                 MessageBox.Show("Please enter interval");
                 return;
@@ -287,26 +307,12 @@ namespace UdpClientDemo
                 string data;
                 using (StreamReader reader = new StreamReader(txtReadFile.Text))
                 {
-                    data = reader.ReadToEnd().Replace("\n", " ");
+                    data = reader.ReadToEnd();
+                    data = data.Replace(Environment.NewLine, "");
                     data = data.Replace(" ", "");
                 }
-                dataInterval = interval;
-                dataToSend.Clear();
-                char[] arr = data.ToCharArray();
-                string buffer = "";
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    if (i % size == 0)
-                    {
-                        if (i != 0) dataToSend.Add(buffer);
-                        buffer = "";
-                    }
-                    buffer += arr[i];
-                }
-                if (buffer != "")
-                {
-                    dataToSend.Add(buffer);
-                }
+                dataInterval = (int) (interval * 1000);
+                dataToSend = splitString(data, size);
                 Thread thread = new Thread(ThreadSendBuffer);
                 thread.Start();
             }
@@ -315,6 +321,29 @@ namespace UdpClientDemo
                 MessageBox.Show("Please make a connection first");
                 return;
             }
+        }
+
+        private void richTextBox_TextChanged(object sender, EventArgs e)
+        {
+            RichTextBox txt = (RichTextBox)sender;
+            txt.SelectionStart = txt.Text.Length;
+            txt.ScrollToCaret();
+        }
+
+        private void dataGridView_DataSourceChanged(object sender, EventArgs e)
+        {
+            DataGridView grid = (DataGridView)sender;
+            if (grid.RowCount > 0)
+            {
+                grid.FirstDisplayedScrollingRowIndex = grid.RowCount - 1;
+            }
+        }
+
+        private void btnClearFile_Click(object sender, EventArgs e)
+        {
+            txtReadFile.Text = "";
+            txtInterval.Text = "";
+            txtSize.Text = "";
         }
     }
 }

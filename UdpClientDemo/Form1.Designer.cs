@@ -39,6 +39,8 @@ namespace UdpClientDemo
             this.btnClearConnection = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClearTab = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
@@ -50,26 +52,24 @@ namespace UdpClientDemo
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtPlain = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnClearData = new System.Windows.Forms.Button();
-            this.btnSendData = new System.Windows.Forms.Button();
-            this.txtSendData = new System.Windows.Forms.TextBox();
-            this.labelStatus = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnClearTab = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtReadFile = new System.Windows.Forms.TextBox();
-            this.btnChooseFile = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtInterval = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnSendFile = new System.Windows.Forms.Button();
-            this.btnClearFile = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtSendData = new System.Windows.Forms.TextBox();
+            this.btnSendData = new System.Windows.Forms.Button();
+            this.btnClearData = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtSize = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnClearFile = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnSendFile = new System.Windows.Forms.Button();
+            this.txtReadFile = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnChooseFile = new System.Windows.Forms.Button();
+            this.txtInterval = new System.Windows.Forms.TextBox();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -78,10 +78,10 @@ namespace UdpClientDemo
             ((System.ComponentModel.ISupportInitialize)(this.gridLog)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -180,6 +180,26 @@ namespace UdpClientDemo
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(662, 17);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 101;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnClearTab
+            // 
+            this.btnClearTab.Location = new System.Drawing.Point(581, 17);
+            this.btnClearTab.Name = "btnClearTab";
+            this.btnClearTab.Size = new System.Drawing.Size(75, 23);
+            this.btnClearTab.TabIndex = 101;
+            this.btnClearTab.Text = "Clear";
+            this.btnClearTab.UseVisualStyleBackColor = true;
+            this.btnClearTab.Click += new System.EventHandler(this.btnClearTab_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -213,6 +233,7 @@ namespace UdpClientDemo
             this.txtConsole.Size = new System.Drawing.Size(724, 551);
             this.txtConsole.TabIndex = 99;
             this.txtConsole.Text = "";
+            this.txtConsole.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
             // 
             // tabPage2
             // 
@@ -220,7 +241,7 @@ namespace UdpClientDemo
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(730, 561);
+            this.tabPage2.Size = new System.Drawing.Size(730, 557);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Log File";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -240,8 +261,9 @@ namespace UdpClientDemo
             this.gridLog.Name = "gridLog";
             this.gridLog.ReadOnly = true;
             this.gridLog.RowHeadersVisible = false;
-            this.gridLog.Size = new System.Drawing.Size(724, 555);
+            this.gridLog.Size = new System.Drawing.Size(724, 551);
             this.gridLog.TabIndex = 0;
+            this.gridLog.DataSourceChanged += new System.EventHandler(this.dataGridView_DataSourceChanged);
             // 
             // Time
             // 
@@ -269,7 +291,7 @@ namespace UdpClientDemo
             this.tabPage3.Controls.Add(this.txtPlain);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(730, 561);
+            this.tabPage3.Size = new System.Drawing.Size(730, 557);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Plain Text";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -282,9 +304,10 @@ namespace UdpClientDemo
             this.txtPlain.Location = new System.Drawing.Point(0, 0);
             this.txtPlain.Name = "txtPlain";
             this.txtPlain.ReadOnly = true;
-            this.txtPlain.Size = new System.Drawing.Size(730, 561);
+            this.txtPlain.Size = new System.Drawing.Size(730, 557);
             this.txtPlain.TabIndex = 100;
             this.txtPlain.Text = "";
+            this.txtPlain.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
             // 
             // groupBox3
             // 
@@ -295,143 +318,6 @@ namespace UdpClientDemo
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Send Data";
-            // 
-            // btnClearData
-            // 
-            this.btnClearData.Location = new System.Drawing.Point(42, 115);
-            this.btnClearData.Name = "btnClearData";
-            this.btnClearData.Size = new System.Drawing.Size(75, 23);
-            this.btnClearData.TabIndex = 7;
-            this.btnClearData.Text = "Clear";
-            this.btnClearData.UseVisualStyleBackColor = true;
-            this.btnClearData.Click += new System.EventHandler(this.btnClearData_Click);
-            // 
-            // btnSendData
-            // 
-            this.btnSendData.Location = new System.Drawing.Point(162, 115);
-            this.btnSendData.Name = "btnSendData";
-            this.btnSendData.Size = new System.Drawing.Size(75, 23);
-            this.btnSendData.TabIndex = 8;
-            this.btnSendData.Text = "Send";
-            this.btnSendData.UseVisualStyleBackColor = true;
-            this.btnSendData.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // txtSendData
-            // 
-            this.txtSendData.Location = new System.Drawing.Point(19, 34);
-            this.txtSendData.Multiline = true;
-            this.txtSendData.Name = "txtSendData";
-            this.txtSendData.Size = new System.Drawing.Size(245, 60);
-            this.txtSendData.TabIndex = 6;
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(19, 30);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(39, 13);
-            this.labelStatus.TabIndex = 6;
-            this.labelStatus.Text = "Closed";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.labelStatus);
-            this.groupBox4.Location = new System.Drawing.Point(768, 561);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(316, 63);
-            this.groupBox4.TabIndex = 7;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Connection Status";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(662, 17);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 101;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnClearTab
-            // 
-            this.btnClearTab.Location = new System.Drawing.Point(581, 17);
-            this.btnClearTab.Name = "btnClearTab";
-            this.btnClearTab.Size = new System.Drawing.Size(75, 23);
-            this.btnClearTab.TabIndex = 101;
-            this.btnClearTab.Text = "Clear";
-            this.btnClearTab.UseVisualStyleBackColor = true;
-            this.btnClearTab.Click += new System.EventHandler(this.btnClearTab_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Data";
-            // 
-            // txtReadFile
-            // 
-            this.txtReadFile.Location = new System.Drawing.Point(18, 36);
-            this.txtReadFile.Name = "txtReadFile";
-            this.txtReadFile.Size = new System.Drawing.Size(161, 20);
-            this.txtReadFile.TabIndex = 10;
-            // 
-            // btnChooseFile
-            // 
-            this.btnChooseFile.Location = new System.Drawing.Point(188, 34);
-            this.btnChooseFile.Name = "btnChooseFile";
-            this.btnChooseFile.Size = new System.Drawing.Size(75, 23);
-            this.btnChooseFile.TabIndex = 11;
-            this.btnChooseFile.Text = "Choose";
-            this.btnChooseFile.UseVisualStyleBackColor = true;
-            this.btnChooseFile.Click += new System.EventHandler(this.btnChooseFile_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 14);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "File";
-            // 
-            // txtInterval
-            // 
-            this.txtInterval.Location = new System.Drawing.Point(65, 77);
-            this.txtInterval.Name = "txtInterval";
-            this.txtInterval.Size = new System.Drawing.Size(64, 20);
-            this.txtInterval.TabIndex = 13;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 80);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Interval";
-            // 
-            // btnSendFile
-            // 
-            this.btnSendFile.Location = new System.Drawing.Point(161, 120);
-            this.btnSendFile.Name = "btnSendFile";
-            this.btnSendFile.Size = new System.Drawing.Size(75, 23);
-            this.btnSendFile.TabIndex = 15;
-            this.btnSendFile.Text = "Send";
-            this.btnSendFile.UseVisualStyleBackColor = true;
-            this.btnSendFile.Click += new System.EventHandler(this.btnSendFile_Click);
-            // 
-            // btnClearFile
-            // 
-            this.btnClearFile.Location = new System.Drawing.Point(41, 120);
-            this.btnClearFile.Name = "btnClearFile";
-            this.btnClearFile.Size = new System.Drawing.Size(75, 23);
-            this.btnClearFile.TabIndex = 16;
-            this.btnClearFile.Text = "Clear";
-            this.btnClearFile.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
@@ -457,6 +343,43 @@ namespace UdpClientDemo
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Plain Text";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Data";
+            // 
+            // txtSendData
+            // 
+            this.txtSendData.Location = new System.Drawing.Point(19, 34);
+            this.txtSendData.Multiline = true;
+            this.txtSendData.Name = "txtSendData";
+            this.txtSendData.Size = new System.Drawing.Size(245, 60);
+            this.txtSendData.TabIndex = 6;
+            // 
+            // btnSendData
+            // 
+            this.btnSendData.Location = new System.Drawing.Point(162, 115);
+            this.btnSendData.Name = "btnSendData";
+            this.btnSendData.Size = new System.Drawing.Size(75, 23);
+            this.btnSendData.TabIndex = 8;
+            this.btnSendData.Text = "Send";
+            this.btnSendData.UseVisualStyleBackColor = true;
+            this.btnSendData.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // btnClearData
+            // 
+            this.btnClearData.Location = new System.Drawing.Point(42, 115);
+            this.btnClearData.Name = "btnClearData";
+            this.btnClearData.Size = new System.Drawing.Size(75, 23);
+            this.btnClearData.TabIndex = 7;
+            this.btnClearData.Text = "Clear";
+            this.btnClearData.UseVisualStyleBackColor = true;
+            this.btnClearData.Click += new System.EventHandler(this.btnClearData_Click);
+            // 
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
@@ -476,6 +399,13 @@ namespace UdpClientDemo
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Text File";
             // 
+            // txtSize
+            // 
+            this.txtSize.Location = new System.Drawing.Point(188, 77);
+            this.txtSize.Name = "txtSize";
+            this.txtSize.Size = new System.Drawing.Size(64, 20);
+            this.txtSize.TabIndex = 13;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -485,12 +415,86 @@ namespace UdpClientDemo
             this.label7.TabIndex = 17;
             this.label7.Text = "Size";
             // 
-            // txtSize
+            // btnClearFile
             // 
-            this.txtSize.Location = new System.Drawing.Point(188, 77);
-            this.txtSize.Name = "txtSize";
-            this.txtSize.Size = new System.Drawing.Size(64, 20);
-            this.txtSize.TabIndex = 18;
+            this.btnClearFile.Location = new System.Drawing.Point(41, 120);
+            this.btnClearFile.Name = "btnClearFile";
+            this.btnClearFile.Size = new System.Drawing.Size(75, 23);
+            this.btnClearFile.TabIndex = 14;
+            this.btnClearFile.Text = "Clear";
+            this.btnClearFile.UseVisualStyleBackColor = true;
+            this.btnClearFile.Click += new System.EventHandler(this.btnClearFile_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(23, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "File";
+            // 
+            // btnSendFile
+            // 
+            this.btnSendFile.Location = new System.Drawing.Point(161, 120);
+            this.btnSendFile.Name = "btnSendFile";
+            this.btnSendFile.Size = new System.Drawing.Size(75, 23);
+            this.btnSendFile.TabIndex = 15;
+            this.btnSendFile.Text = "Send";
+            this.btnSendFile.UseVisualStyleBackColor = true;
+            this.btnSendFile.Click += new System.EventHandler(this.btnSendFile_Click);
+            // 
+            // txtReadFile
+            // 
+            this.txtReadFile.Location = new System.Drawing.Point(18, 36);
+            this.txtReadFile.Name = "txtReadFile";
+            this.txtReadFile.Size = new System.Drawing.Size(161, 20);
+            this.txtReadFile.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 80);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Interval";
+            // 
+            // btnChooseFile
+            // 
+            this.btnChooseFile.Location = new System.Drawing.Point(188, 34);
+            this.btnChooseFile.Name = "btnChooseFile";
+            this.btnChooseFile.Size = new System.Drawing.Size(75, 23);
+            this.btnChooseFile.TabIndex = 11;
+            this.btnChooseFile.Text = "Choose";
+            this.btnChooseFile.UseVisualStyleBackColor = true;
+            this.btnChooseFile.Click += new System.EventHandler(this.btnChooseFile_Click);
+            // 
+            // txtInterval
+            // 
+            this.txtInterval.Location = new System.Drawing.Point(65, 77);
+            this.txtInterval.Name = "txtInterval";
+            this.txtInterval.Size = new System.Drawing.Size(64, 20);
+            this.txtInterval.TabIndex = 12;
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(19, 30);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(39, 13);
+            this.labelStatus.TabIndex = 6;
+            this.labelStatus.Text = "Closed";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.labelStatus);
+            this.groupBox4.Location = new System.Drawing.Point(768, 561);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(316, 63);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Connection Status";
             // 
             // Form1
             // 
@@ -515,13 +519,13 @@ namespace UdpClientDemo
             ((System.ComponentModel.ISupportInitialize)(this.gridLog)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
