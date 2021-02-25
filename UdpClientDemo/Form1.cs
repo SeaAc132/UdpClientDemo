@@ -96,7 +96,7 @@ namespace UdpClientDemo
                     return;
                 }
                 udpClient = new UdpClient(sendingPort);
-                udpClient.Connect(ip, listeningPort);
+                udpClient.Connect(IPAddress.Parse(ip), listeningPort);
                 try
                 {
                     udpClient.BeginReceive(DataReceived, null);
@@ -152,12 +152,13 @@ namespace UdpClientDemo
             {
                 return;
             }
-            this.BeginInvoke((Action<IPEndPoint, string>)DataReceivedUI, ip, Encoding.UTF8.GetString(data));
+            this.BeginInvoke((Action<IPEndPoint, byte[]>)DataReceivedUI, ip, data);
         }
 
-        private void DataReceivedUI(IPEndPoint endPoint, string data)
+        private void DataReceivedUI(IPEndPoint endPoint, byte[] dataBytes)
         {
             long timestamp = nanoTime();
+            string data = BitConverter.ToString(dataBytes).Replace("-", "");
             appendConsole(data);
             appendConsole("This message was sent from " + endPoint.Address.ToString() + " on port " + endPoint.Port.ToString());
             appendLogFile(timestamp, data);
