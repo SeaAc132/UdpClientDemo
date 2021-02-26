@@ -180,6 +180,16 @@ namespace UdpClientDemo
                     MessageBox.Show("Please enter data to send");
                     return;
                 }
+                else if (data.Length > 2)
+                {
+                    MessageBox.Show("Data provided maximum size is 2");
+                    return;
+                }
+                else if (!Regex.IsMatch(data, @"[0-9a-fA-F]{1,2}"))
+                {
+                    MessageBox.Show("Data provided is not base16");
+                    return;
+                }
                 sendData(data);
                 appendConsole("Sending data : " + data);
             }
@@ -227,9 +237,11 @@ namespace UdpClientDemo
         private void btnClearTab_Click(object sender, EventArgs e)
         {
             txtConsole.Clear();
+            txtConsole.SelectionStart = 0;
             packets.Clear();
             gridLog.DataSource = new BindingList<PacketReceived>(packets);
             txtPlain.Clear();
+            txtPlain.SelectionStart = 0;
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -289,6 +301,11 @@ namespace UdpClientDemo
             if (!int.TryParse(txtSize.Text, out size))
             {
                 MessageBox.Show("Please enter size");
+                return;
+            }
+            if (size > 2)
+            {
+                MessageBox.Show("Data provided maximum size is 2");
                 return;
             }
             if (connected)
