@@ -303,6 +303,11 @@ namespace UdpClientDemo
                 MessageBox.Show("Please enter size");
                 return;
             }
+            if (interval < 0)
+            {
+                MessageBox.Show("Interval must be greater than 0");
+                return;
+            }
             if (size != 1 || size != 2)
             {
                 MessageBox.Show("Data provided maximum size is 2");
