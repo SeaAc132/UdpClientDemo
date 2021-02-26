@@ -166,7 +166,8 @@ namespace UdpClientDemo
         }
         private void sendData(string data)
         {
-            byte[] sendBytes = Encoding.ASCII.GetBytes(data);
+            byte[] sendBytes = new byte[1];
+            sendBytes[0] = (byte)Convert.ToChar(Convert.ToUInt32(data, 16));
             udpClient.Send(sendBytes, sendBytes.Length);
         }
         private void btnSend_Click(object sender, EventArgs e)
